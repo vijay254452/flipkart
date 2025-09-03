@@ -37,7 +37,7 @@ pipeline {
             steps {
                 sh """
                 docker rm -f flipkart-app || true
-                docker run -d --name flipkart-app -p 8080:8080 ${DOCKER_IMAGE}
+                docker run -d --name flipkart-app -p 8999:8080 ${DOCKER_IMAGE}
                 """
             }
         }
