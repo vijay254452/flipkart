@@ -1,15 +1,14 @@
-# Use official Maven image to build
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+FROM tomcat:10.1-jdk17
 
-WORKDIR /app
-COPY pom.xml .
-COPY /*.jar /flipkart/flipkart/*.jar
-RUN mvn clean package -DskipTests
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Run stage
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-COPY --from=build /app/target/flipkart-app-1.0.0.jar app.jar
+COPY target/flipkart-app.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+CMD ["catalina.sh", "run"]
+
+
+
+
+=======
